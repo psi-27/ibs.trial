@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ibs>
+    <vendors>
+        <vendor id="1">Hewlett-Packard</vendor>
+        <vendor id="2">ASUS</vendor>
+        <vendor id="3">Lenovo</vendor>
+    </vendors>
+    <models>
+        <model id="1" vendor="1">HP-1</model>
+        <model id="2" vendor="1">HP-2</model>
+        <model id="3" vendor="1">HP-3</model>
+        <model id="4" vendor="1">HP-4</model>
+        <model id="4" vendor="2">AS-1</model>
+        <model id="5" vendor="2">AS-2</model>
+        <model id="6" vendor="2">AS-3</model>
+        <model id="7" vendor="2">AS-4</model>
+        <model id="8" vendor="3">LV-1</model>
+        <model id="9" vendor="3">LV-2</model>
+        <model id="10" vendor="3">LV-3</model>
+        <model id="11" vendor="3">LV-4</model>
+    </models>
+    <options>
+        <option id="1">Расширенная гарантия</option>
+        <option id="2">Продленная гарантия</option>
+        <option id="3">Сумка в комплекте</option>
+        <option id="4">Проводная гарнитура в комплекте</option>
+    </options>
+    <laptops>
+        <laptop id="1" model="1">
+            <name>HP-1-15-500</name>
+            <year>2013</year>
+            <price>21000.14</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+                <option id="4"/>
+            </options>
+        </laptop>
+        <laptop id="2" model="2">
+            <name>HP-2-17-500-1</name>
+            <year>2012</year>
+            <price>15000.00</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+            </options>
+        </laptop>
+        <laptop id="3" model="2">
+            <name>HP-2-17-500-2</name>
+            <year>2013</year>
+            <price>18000.00</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+            </options>
+        </laptop>
+        <laptop id="4" model="2">
+            <name>HP-2-17-500-3</name>
+            <year>2014</year>
+            <price>10000.00</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+            </options>
+        </laptop>
+        <laptop id="5" model="2">
+            <name>HP-2-17-500-4</name>
+            <year>2015</year>
+            <price>13000.00</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+            </options>
+        </laptop>
+        <laptop id="6" model="10">
+            <name>LV-3-17-1000</name>
+            <year>2014</year>
+            <price>9000.85</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+            </options>
+        </laptop>
+        <laptop id="7" model="5">
+            <name>AS-2-17-1000</name>
+            <year>2012</year>
+            <price>16000.00</price>
+            <options>
+                <option id="1"/>
+                <option id="2"/>
+                <option id="3"/>
+                <option id="4"/>
+            </options>
+        </laptop>
+    </laptops>
+</ibs>
