@@ -1,4 +1,5 @@
 <?php
+
 use Bitrix\Main\Loader;
 use Ibs\Laptops\LaptopTable;
 use Ibs\Laptops\ModelTable;
@@ -21,7 +22,7 @@ if (!empty($arParams["BRAND"]) && !empty($arParams["MODEL"])) {
     $filter = [
         "=MODEL_ID" => $arParams["MODEL"]
     ];
-} else if (!empty($arParams["BRAND"])) {
+} elseif (!empty($arParams["BRAND"])) {
     $filter = [
         "=VENDOR_ID" => $arParams["BRAND"]
     ];

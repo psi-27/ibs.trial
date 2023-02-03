@@ -1,4 +1,5 @@
 <?php
+
 use Bitrix\Main\Loader;
 
 Loader::includeModule("ibs.laptops");
@@ -18,25 +19,24 @@ if ($arParams["SEF_MODE"] == "Y") {
         $arDefaultUrlTemplates,
         $arParams['SEF_URL_TEMPLATES']
     );
-    
+
     $arVariableAliases = CComponentEngine::MakeComponentVariableAliases(
         $arDefaultVariableAliases,
         $arParams['VARIABLE_ALIASES']
     );
-    
+
     $componentPage = CComponentEngine::ParseComponentPath(
         $arParams['SEF_FOLDER'],
         $arUrlTemplates,
         $arVariables
-    )?:"vendors";
-    
+    ) ?: "vendors";
+
     CComponentEngine::InitComponentVariables(
         $componentPage,
         $arComponentVariables,
         $arVariableAliases,
         $arVariables
     );
-
 } else {
     CComponentEngine::InitComponentVariables(
         false,
@@ -47,17 +47,13 @@ if ($arParams["SEF_MODE"] == "Y") {
 
     if (!empty($arVariables["BRAND"]) && !empty($arVariables["MODEL"])) {
         $componentPage = "laptops";
-    }
-    else if (!empty($arVariables["BRAND"])) {
+    } elseif (!empty($arVariables["BRAND"])) {
         $componentPage = "models";
-    }
-    else if (!empty($arVariables["NOTEBOOK"])) {
+    } elseif (!empty($arVariables["NOTEBOOK"])) {
         $componentPage = "laptop";
-    }
-    else {
+    } else {
         $componentPage = "vendors";
     }
-
 }
 
 $arResult = [

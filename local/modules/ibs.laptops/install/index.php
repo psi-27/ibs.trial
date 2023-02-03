@@ -20,10 +20,9 @@ class Ibs_Laptops extends CModule
 
     public function __construct()
     {
-
     }
 
-    function DoInstall()
+    public function DoInstall()
     {
         RegisterModule('ibs.laptops');
 
@@ -31,7 +30,7 @@ class Ibs_Laptops extends CModule
         $this->InstallFiles();
     }
 
-    function DoUninstall()
+    public function DoUninstall()
     {
         $this->uninstallDB();
         $this->DeleteFiles();
@@ -89,7 +88,6 @@ class Ibs_Laptops extends CModule
                 $laptopEO->addToOptions($optionEO);
                 $laptopEO->save();
             }
-
         }
     }
 
@@ -119,14 +117,13 @@ class Ibs_Laptops extends CModule
         }
     }
 
-    function InstallFiles()
+    public function InstallFiles()
     {
-
         CopyDirFiles($_SERVER["DOCUMENT_ROOT"] . "/local/modules/ibs.laptops/install/components", $_SERVER["DOCUMENT_ROOT"] . "/local/components", true, true);
         return true;
     }
 
-    function DeleteFiles()
+    public function DeleteFiles()
     {
         Bitrix\Main\IO\Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . "/local/components/ibs");
         return true;

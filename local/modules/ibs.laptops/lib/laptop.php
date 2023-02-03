@@ -4,7 +4,7 @@ namespace Ibs\Laptops;
 
 /**
  * Class LaptopTable
- * 
+ *
  * @package Bitrix\Data
  */
 
@@ -16,15 +16,17 @@ use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\ORM\Fields\Relations\ManyToMany;
 use Bitrix\Main\ORM\Query\Join;
 
-class LaptopTable extends DataManager {
-    
-    public static function getTableName() {
+class LaptopTable extends DataManager
+{
+    public static function getTableName()
+    {
         return "ibs_laptops_laptop";
     }
 
-    public static function getMap() {
+    public static function getMap()
+    {
         return [
-            new IntegerField("ID",[ "primary" => true, "autocomplete" => true ]),
+            new IntegerField("ID", [ "primary" => true, "autocomplete" => true ]),
             new IntegerField("XML_ID", ["default_value" => 0]),
             new IntegerField("MODEL_ID"),
             new StringField("NAME", [ "required" => true ]),

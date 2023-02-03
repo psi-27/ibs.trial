@@ -4,7 +4,7 @@ namespace Ibs\Laptops;
 
 /**
  * Class LaptopsOptionsTable
- * 
+ *
  * @package Bitrix\Data
  */
 
@@ -13,13 +13,15 @@ use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\Entity\ReferenceField;
 use Bitrix\Main\ORM\Query\Join;
 
-class LaptopsOptionsTable extends DataManager {
-    
-    public static function getTableName() {
+class LaptopsOptionsTable extends DataManager
+{
+    public static function getTableName()
+    {
         return "ibs_laptops_laptops_options";
     }
 
-    public static function getMap() {
+    public static function getMap()
+    {
         return [
             new IntegerField("LAPTOP_ID", ["primary" => true]),
             (new ReferenceField("LAPTOP", LaptopTable::class, Join::on("this.LAPTOP_ID", "ref.ID"))),

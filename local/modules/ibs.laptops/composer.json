@@ -1,0 +1,15 @@
+{
+    "name": "ibs/trial",
+    "description": "Ibs Trial Module",
+    "version": "1.0.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Artem Tsybin",
+            "email": "psi-27@mail.ru"
+        }
+    ],
+    "require": {
+        "friendsofphp/php-cs-fixer":"^3.14"
+    }
+}

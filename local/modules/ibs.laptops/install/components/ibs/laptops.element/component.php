@@ -1,4 +1,5 @@
 <?php
+
 use Bitrix\Main\Entity\ReferenceField;
 use Bitrix\Main\Loader;
 use Ibs\Laptops\LaptopTable;

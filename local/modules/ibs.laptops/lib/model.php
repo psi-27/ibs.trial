@@ -4,7 +4,7 @@ namespace Ibs\Laptops;
 
 /**
  * Class ModelTable
- * 
+ *
  * @package Bitrix\Data
  */
 
@@ -15,15 +15,17 @@ use Bitrix\Main\Entity\StringField;
 use Bitrix\Main\Entity\ReferenceField;
 use Bitrix\Main\ORM\Fields\Relations\OneToMany;
 
-class ModelTable extends DataManager {
-    
-    public static function getTableName() {
+class ModelTable extends DataManager
+{
+    public static function getTableName()
+    {
         return "ibs_laptops_model";
     }
 
-    public static function getMap() {
+    public static function getMap()
+    {
         return [
-            new IntegerField("ID",[ "primary" => true, "autocomplete" => true ]),
+            new IntegerField("ID", [ "primary" => true, "autocomplete" => true ]),
             new IntegerField("XML_ID", ["default_value" => 0]),
             new StringField("NAME", [ "required" => true ]),
             new IntegerField("VENDOR_ID"),
