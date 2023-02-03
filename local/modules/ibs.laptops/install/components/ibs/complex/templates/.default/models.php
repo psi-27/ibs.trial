@@ -1,5 +1,8 @@
 <?php
 
+$APPLICATION->AddChainItem("Производители", $arParams["SEF_FOLDER"]);
+$APPLICATION->AddChainItem("Модели", $arParams["SEF_FOLDER"].$arResult["VARIABLES"]["BRAND"].'/');
+
 $APPLICATION->IncludeComponent(
     "ibs:laptops.catalog",
     "", 

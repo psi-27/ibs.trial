@@ -1,5 +1,11 @@
 <?php
 
+use Ibs\Laptops\ModelTable;
+
+$APPLICATION->AddChainItem("Производители", $arParams["SEF_FOLDER"].$arParams["VARIABLES"]["BRAND"]);
+$APPLICATION->AddChainItem("Модели", $arParams["SEF_FOLDER"].$arResult["VARIABLES"]["BRAND"].'/');
+$APPLICATION->AddChainItem(ModelTable::getById($arResult["VARIABLES"]["MODEL"])->fetchObject()->getName());
+
 $APPLICATION->IncludeComponent(
     "ibs:laptops.catalog",
     "", 

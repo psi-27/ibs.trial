@@ -1,5 +1,7 @@
 <?php
 
+$APPLICATION->AddChainItem("Производители");
+
 $APPLICATION->IncludeComponent(
     "ibs:laptops.catalog",
     "", 
