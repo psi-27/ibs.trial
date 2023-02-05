@@ -1,7 +1,9 @@
 <?php
-$collection = $arResult["COLLECTION"]->fetchCollection();
 
 \Bitrix\Main\UI\Extension::load("ui.bootstrap4");
+Bitrix\Main\Localization\Loc::loadMessages(__FILE__);
+
+$collection = $arResult["COLLECTION"]->fetchCollection();
 
 ?>
 
@@ -20,7 +22,7 @@ $collection = $arResult["COLLECTION"]->fetchCollection();
    ?>
 </div>
 <?php if ($arResult["COLLECTION"]->getCount() <= 0) { ?>
-   <div>По вашему запросу ничего не найдено</div>
+   <div><?= Bitrix\Main\Localization\Loc::getMessage("IBS.COM_COMPLEX_CATALOG.NOT_FOUND_MSG")?></div>
 <?php } else if ($arResult["TYPE"] == "VENDOR") { ?>
 
       <div>
@@ -70,7 +72,7 @@ $collection = $arResult["COLLECTION"]->fetchCollection();
                </div>
             </div>
 <?php } else { ?>
-            <div>По вашему запросу ничего не найдено</div>
+            <div><?= Bitrix\Main\Localization\Loc::getMessage("IBS.COM_COMPLEX_CATALOG.NOT_FOUND_MSG")?></div>
 <?php } ?>
 
 <?php

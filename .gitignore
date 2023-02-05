@@ -6,4 +6,3 @@
 !local/modules/ibs.laptops/**
 local/modules/ibs.laptops/vendor
 local/modules/ibs.laptops/*.cache
-local/modules/ibs.laptops/*.lock

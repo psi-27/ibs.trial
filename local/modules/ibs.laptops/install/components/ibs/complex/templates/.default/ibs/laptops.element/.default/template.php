@@ -1,6 +1,7 @@
 <?php
 
 \Bitrix\Main\UI\Extension::load("ui.bootstrap4");
+Bitrix\Main\Localization\Loc::loadMessages(__FILE__);
 
 $laptopEO = $arResult["COLLECTION"]->fetchObject();
 $laptopEO->getModel()->fillVendor();
@@ -30,12 +31,12 @@ $APPLICATION->AddChainItem($laptopEO->getName());
       <?=$laptopEO->getName()?> (<?=$laptopEO->getYear()?>)
    </div>
    <div class="card-body">
-      <div>Цена: <?=$laptopEO->getPrice()?></div>
-      <div>Производитель: <strong><?=$laptopEO->getModel()->getVendor()->getName()?></strong></div>
-      <div>Модель: <strong><?=$laptopEO->getModel()->getName()?></strong></div>
+      <div><?= Bitrix\Main\Localization\Loc::getMessage("IBS.COM_COMPLEX_ELEMENT.PRICE_LABEL")?>: <?=$laptopEO->getPrice()?></div>
+      <div><?= Bitrix\Main\Localization\Loc::getMessage("IBS.COM_COMPLEX_ELEMENT.VENDOR_LABEL")?>: <strong><?=$laptopEO->getModel()->getVendor()->getName()?></strong></div>
+      <div><?= Bitrix\Main\Localization\Loc::getMessage("IBS.COM_COMPLEX_ELEMENT.MODEL_LABEL")?>: <strong><?=$laptopEO->getModel()->getName()?></strong></div>
       <br/>
       <div class="list-group">
-         <div li class="list-group-item"><strong>Дополнительные опции:</strong></div>
+         <div li class="list-group-item"><strong><?= Bitrix\Main\Localization\Loc::getMessage("IBS.COM_COMPLEX_ELEMENT.OPTIONS_LABEL")?>:</strong></div>
          <? foreach($laptopEO->getOptions() as $option) { ?>
             <div li class="list-group-item"><?=$option->getName()?></div>
          <? } ?>

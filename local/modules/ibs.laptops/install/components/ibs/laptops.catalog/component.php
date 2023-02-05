@@ -9,7 +9,7 @@ Loader::includeModule("ibs.laptops");
 
 $entities = [
     "VENDOR" => "Ibs\\Laptops\\VendorTable",
-    "MODEL" => "Ibs\\Laptops\\ModelTable",
+    "MODEL"  => "Ibs\\Laptops\\ModelTable",
     "LAPTOP" => "Ibs\\Laptops\\LaptopTable",
 ];
 
@@ -42,14 +42,14 @@ $nav->allowAllRecords(true)
    ->initFromUri();
 
 $arResult["COLLECTION"] = $entityClassName::getList([
-    "select" => [
+    "select"      => [
         '*',
     ],
-    "filter" => $filter,
-    "order" => $order,
+    "filter"      => $filter,
+    "order"       => $order,
     "count_total" => true,
-    "offset" => $nav->getOffset(),
-    "limit" => $nav->getLimit(),
+    "offset"      => $nav->getOffset(),
+    "limit"       => $nav->getLimit(),
 ]);
 
 $arResult["TYPE"] = $arParams["ENTITY"];

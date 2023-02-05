@@ -9,6 +9,7 @@ use Ibs\Laptops\VendorTable;
 use Ibs\Laptops\ModelTable;
 use Ibs\Laptops\LaptopTable;
 
+
 class Ibs_Laptops extends CModule
 {
     public $MODULE_ID = 'ibs.laptops';
@@ -18,23 +19,50 @@ class Ibs_Laptops extends CModule
     public $MODULE_DESCRIPTION = 'Laptops catalog';
     public $MODULE_GROUP_RIGHTS = 'N';
 
-    public function __construct()
-    {
-    }
-
     public function DoInstall()
     {
-        RegisterModule('ibs.laptops');
+        global $APPLICATION, $step, $recreateTables;
 
-        $this->installDB();
-        $this->InstallFiles();
+        $step = intval($step);
+
+        if (!check_bitrix_sessid()) {
+            $step = 1;
+        }
+
+        if ($step < 2) {
+            $APPLICATION->IncludeAdminFile("Шаг 1", $_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/step.php");
+        }
+
+        RegisterModule($this->MODULE_ID);
+
+        if ($step == 2 && $recreateTables) {
+            $this->uninstallDB();
+            $this->installDB();
+            $this->installTestData();
+        }
+
+        $this->installFiles();
     }
 
     public function DoUninstall()
     {
-        $this->uninstallDB();
-        $this->DeleteFiles();
-        UnRegisterModule('ibs.laptops');
+        global $APPLICATION, $step, $removeTables;
+
+        $step = intval($step);
+
+        if (!check_bitrix_sessid()) {
+            $step = 1;
+        }
+
+        if ($step < 2) {
+            $APPLICATION->IncludeAdminFile("Шаг 1", $_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/unstep.php");
+        }
+
+        if ($step == 2 && $removeTables) {
+            $this->uninstallDB();
+        }
+
+        UnRegisterModule($this->MODULE_ID);
     }
 
     public function installDB()
@@ -45,49 +73,6 @@ class Ibs_Laptops extends CModule
             LaptopsOptionsTable::getEntity()->createDbTable();
             LaptopTable::getEntity()->createDbTable();
             OptionTable::getEntity()->createDbTable();
-
-            $tdata = new DOMDocument();
-            $tdata->load($_SERVER["DOCUMENT_ROOT"] . "/local/modules/ibs.laptops/install/test.data/laptops.xml");
-            $xpath = new DOMXPath($tdata);
-
-            foreach ($xpath->query("*/vendor") as $vendor) {
-                VendorTable::add(["NAME" => $vendor->nodeValue, "XML_ID" => $vendor->attributes->getNamedItem("id")->nodeValue]);
-            }
-
-            foreach ($xpath->query("*/model") as $model) {
-                $vendor = VendorTable::getList(["filter" => ["=XML_ID" => $model->attributes->getNamedItem("vendor")->nodeValue]])->fetchObject();
-                ModelTable::add([
-                    "NAME" => $model->nodeValue,
-                    "XML_ID" => $model->attributes->getNamedItem("id")->nodeValue,
-                    "VENDOR" => $vendor,
-                ]);
-            }
-
-            foreach ($xpath->query("*/option") as $option) {
-                OptionTable::add([
-                    "XML_ID" => $option->attributes->getNamedItem("id")->nodeValue,
-                    "NAME" => $option->nodeValue,
-                ]);
-            }
-
-            foreach ($xpath->query("*/laptop") as $laptop) {
-                $model = ModelTable::getList(["filter" => ["=XML_ID" => $laptop->attributes->getNamedItem("model")->nodeValue]])->fetchObject();
-                LaptopTable::add([
-                    "NAME" => $xpath->query("name", $laptop)->item(0)->nodeValue,
-                    "XML_ID" => $laptop->attributes->getNamedItem("id")->nodeValue,
-                    "MODEL" => $model,
-                    "YEAR" => $xpath->query("year", $laptop)->item(0)->nodeValue,
-                    "PRICE" => $xpath->query("price", $laptop)->item(0)->nodeValue,
-                ]);
-            }
-
-            foreach ($xpath->query("*/laptop/options/option") as $laptopOption) {
-                $laptopXmlId = $laptopOption->parentNode->parentNode->attributes->getNamedItem("id")->nodeValue;
-                $laptopEO = LaptopTable::getList(["filter" => ["=XML_ID" => $laptopXmlId]])->fetchObject();
-                $optionEO = OptionTable::getList(["filter" => ["=XML_ID" => $laptopOption->attributes->getNamedItem("id")->nodeValue]])->fetchObject();
-                $laptopEO->addToOptions($optionEO);
-                $laptopEO->save();
-            }
         }
     }
 
@@ -117,15 +102,63 @@ class Ibs_Laptops extends CModule
         }
     }
 
-    public function InstallFiles()
+    public function installFiles()
     {
         CopyDirFiles($_SERVER["DOCUMENT_ROOT"] . "/local/modules/ibs.laptops/install/components", $_SERVER["DOCUMENT_ROOT"] . "/local/components", true, true);
         return true;
     }
 
-    public function DeleteFiles()
+    public function deleteFiles()
     {
         Bitrix\Main\IO\Directory::deleteDirectory($_SERVER["DOCUMENT_ROOT"] . "/local/components/ibs");
         return true;
+    }
+
+    public function installTestData()
+    {
+        if (Loader::includeModule($this->MODULE_ID)) {
+            $tdata = new DOMDocument();
+            $tdata->load($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/test.data/laptops.xml");
+            $xpath = new DOMXPath($tdata);
+
+            foreach ($xpath->query("*/vendor") as $vendor) {
+                VendorTable::add(["NAME" => $vendor->nodeValue, "XML_ID" => $vendor->attributes->getNamedItem("id")->nodeValue]);
+            }
+
+            foreach ($xpath->query("*/model") as $model) {
+                $vendor = VendorTable::getList(["filter" => ["=XML_ID" => $model->attributes->getNamedItem("vendor")->nodeValue]])->fetchObject();
+                ModelTable::add([
+                    "NAME"   => $model->nodeValue,
+                    "XML_ID" => $model->attributes->getNamedItem("id")->nodeValue,
+                    "VENDOR" => $vendor,
+                ]);
+            }
+
+            foreach ($xpath->query("*/option") as $option) {
+                OptionTable::add([
+                    "XML_ID" => $option->attributes->getNamedItem("id")->nodeValue,
+                    "NAME"   => $option->nodeValue,
+                ]);
+            }
+
+            foreach ($xpath->query("*/laptop") as $laptop) {
+                $model = ModelTable::getList(["filter" => ["=XML_ID" => $laptop->attributes->getNamedItem("model")->nodeValue]])->fetchObject();
+                LaptopTable::add([
+                    "NAME"   => $xpath->query("name", $laptop)->item(0)->nodeValue,
+                    "XML_ID" => $laptop->attributes->getNamedItem("id")->nodeValue,
+                    "MODEL"  => $model,
+                    "YEAR"   => $xpath->query("year", $laptop)->item(0)->nodeValue,
+                    "PRICE"  => $xpath->query("price", $laptop)->item(0)->nodeValue,
+                ]);
+            }
+
+            foreach ($xpath->query("*/laptop/options/option") as $laptopOption) {
+                $laptopXmlId = $laptopOption->parentNode->parentNode->attributes->getNamedItem("id")->nodeValue;
+                $laptopEO = LaptopTable::getList(["filter" => ["=XML_ID" => $laptopXmlId]])->fetchObject();
+                $optionEO = OptionTable::getList(["filter" => ["=XML_ID" => $laptopOption->attributes->getNamedItem("id")->nodeValue]])->fetchObject();
+                $laptopEO->addToOptions($optionEO);
+                $laptopEO->save();
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ class ModelTable extends DataManager
             new IntegerField("XML_ID", ["default_value" => 0]),
             new StringField("NAME", [ "required" => true ]),
             new IntegerField("VENDOR_ID"),
-            (new ReferenceField("VENDOR", VendorTable::class, Join::on("this.VENDOR_ID", "ref.ID")))->configureJoinType("inner"),
+            (new ReferenceField("VENDOR", VendorTable::class, Join::on("this.VENDOR_ID", "ref.ID"), [ "required" => true ]))->configureJoinType("inner"),
             (new OneToMany("LAPTOPS", LaptopTable::class, "MODEL"))->configureJoinType("inner"),
         ];
     }

@@ -5,8 +5,8 @@ use Bitrix\Main\Loader;
 Loader::includeModule("ibs.laptops");
 
 $arDefaultUrlTemplates = [
-    "laptop" => "detail/#NOTEBOOK#/",
-    "models" => "#BRAND#/",
+    "laptop"  => "detail/#NOTEBOOK#/",
+    "models"  => "#BRAND#/",
     "laptops" => "#BRAND#/#MODEL#/",
 ];
 
@@ -57,7 +57,7 @@ if ($arParams["SEF_MODE"] == "Y") {
 }
 
 $arResult = [
-    'VARIABLES'     => $arVariables,
+    'VARIABLES' => $arVariables,
 ];
 
 $this->IncludeComponentTemplate($componentPage);

@@ -32,7 +32,7 @@ class LaptopTable extends DataManager
             new StringField("NAME", [ "required" => true ]),
             new StringField("YEAR", [ "required" => true ]),
             new FloatField("PRICE", [ "required" => true ]),
-            (new ReferenceField("MODEL", ModelTable::class, Join::on("this.MODEL_ID", "ref.ID")))->configureJoinType("inner"),
+            (new ReferenceField("MODEL", ModelTable::class, Join::on("this.MODEL_ID", "ref.ID"), [ "required" => true ]))->configureJoinType("inner"),
             (new ManyToMany("OPTIONS", OptionTable::class))->configureTableName("ibs_laptops_laptops_options"),
         ];
     }
